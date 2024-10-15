@@ -3174,7 +3174,7 @@ vertical-align: -.125em;
 <div id="cell-13" class="cell" data-outputid="bfe57152-faf2-441c-c8e6-797a6158fff9" data-execution_count="73">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tables <span class="op">=</span> soup.find_all(<span class="st">&quot;table&quot;</span>)</span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tables <span class="op">=</span> soup.find_all(<span class="st">&quot;table&quot;</span>) <span class="co"># code suggested by Chat to print out all possible attrs</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> table <span class="kw">in</span> tables:</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(table.attrs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -3195,7 +3195,7 @@ vertical-align: -.125em;
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(soup.find_all(<span class="st">&quot;table&quot;</span>, attrs<span class="op">=</span>{<span class="st">&quot;class&quot;</span>: [<span class="st">&#39;sortable&#39;</span>, <span class="st">&#39;wikitable&#39;</span>, <span class="st">&#39;sticky-header-multi&#39;</span>, <span class="st">&#39;static-row-numbers&#39;</span>, <span class="st">&#39;sort-under&#39;</span>, <span class="st">&#39;col1left&#39;</span>, <span class="st">&#39;col2center&#39;</span>],</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">&#39;style&#39;</span>: <span class="st">&#39;text-align:right&#39;</span>}))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">&#39;style&#39;</span>: <span class="st">&#39;text-align:right&#39;</span>})) <span class="co"># refine attrs using the above</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="74">
 <pre><code>3</code></pre>
@@ -3216,7 +3216,10 @@ vertical-align: -.125em;
 </div>
 </div>
 <p>At this point, you can manually inspect the tables on the webpage to find that the one we want is the first one (see <code>[0]</code> below). We’ll store this as <code>table</code>.</p>
-<div id="cell-17" class="cell" data-execution_count="75">
+<ul>
+<li>‘sticky-header-multi’ is the table we need</li>
+</ul>
+<div id="cell-18" class="cell" data-execution_count="75">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>table <span class="op">=</span> soup.find_all(<span class="st">&quot;table&quot;</span>, attrs<span class="op">=</span>{<span class="st">&quot;class&quot;</span>: [<span class="st">&#39;sortable&#39;</span>, <span class="st">&#39;wikitable&#39;</span>, <span class="st">&#39;sticky-header-multi&#39;</span>, <span class="st">&#39;static-row-numbers&#39;</span>, <span class="st">&#39;sort-under&#39;</span>, <span class="st">&#39;col1left&#39;</span>, <span class="st">&#39;col2center&#39;</span>],</span>
@@ -3234,7 +3237,7 @@ vertical-align: -.125em;
 <li><p>The goal of this exercise is just to create the Data Frame. If you were going to use it — e.g., what is the population density for all cities in CA? — then you would need to clean the data first (to clean strings and convert to quantitative). (You can use Beautiful Soup to do some of the cleaning for you, but that goes beyond our scope.)</p></li>
 <li><p>test out code</p></li>
 </ul>
-<div id="cell-21" class="cell" data-outputid="04fd5ac0-2e4a-4311-9884-00266206f583" data-execution_count="76">
+<div id="cell-22" class="cell" data-outputid="04fd5ac0-2e4a-4311-9884-00266206f583" data-execution_count="76">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>text_row <span class="op">=</span> table.find_all(<span class="st">&quot;tr&quot;</span>)[<span class="dv">2</span>]</span>
@@ -3246,7 +3249,7 @@ vertical-align: -.125em;
 &lt;/td&gt;</code></pre>
 </div>
 </div>
-<div id="cell-22" class="cell" data-outputid="43570088-a3c0-41f0-da97-ebafa376796d" data-execution_count="77">
+<div id="cell-23" class="cell" data-outputid="43570088-a3c0-41f0-da97-ebafa376796d" data-execution_count="77">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>city <span class="op">=</span> cell_test[<span class="dv">0</span>].find(<span class="st">&quot;a&quot;</span>)</span>
@@ -3257,7 +3260,7 @@ vertical-align: -.125em;
 <pre><code>&#39;New York&#39;</code></pre>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="78">
+<div id="cell-24" class="cell" data-execution_count="78">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE. ADD AS MANY CELLS AS NEEDED</span></span>
@@ -3299,7 +3302,7 @@ vertical-align: -.125em;
 <span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-24" class="cell" data-outputid="e370664c-d987-43e4-d508-be1c18909436" data-execution_count="79">
+<div id="cell-25" class="cell" data-outputid="e370664c-d987-43e4-d508-be1c18909436" data-execution_count="79">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(rows)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3308,7 +3311,7 @@ vertical-align: -.125em;
 <pre><code>list</code></pre>
 </div>
 </div>
-<div id="cell-25" class="cell" data-outputid="3aaccb0c-8dbd-4dc4-bba6-45ec06ba7a44" data-execution_count="141">
+<div id="cell-26" class="cell" data-outputid="3aaccb0c-8dbd-4dc4-bba6-45ec06ba7a44" data-execution_count="141">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>wiki <span class="op">=</span> pd.DataFrame(rows)</span>
@@ -3565,7 +3568,7 @@ border-bottom-color: var(--fill-color);
   </div>
 </div>
 </div>
-<div id="cell-26" class="cell" data-outputid="88ad04e2-75df-4276-b100-a9d03a6807fe" data-execution_count="142">
+<div id="cell-27" class="cell" data-outputid="88ad04e2-75df-4276-b100-a9d03a6807fe" data-execution_count="142">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>wiki.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3595,14 +3598,14 @@ memory usage: 10.6+ KB</code></pre>
 <h2 class="anchored" data-anchor-id="aside-scraping-an-html-table-with-pandas">Aside: Scraping an HTML table with Pandas</h2>
 <p>The Pandas command <code>read_html</code> can be used to scrape information from an HTML table on a webpage.</p>
 <p>We can call <code>read_html</code> on the URL.</p>
-<div id="cell-30" class="cell">
+<div id="cell-31" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pd.read_html(<span class="st">&quot;https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>However, this scrapes all the tables on the webpage, not just the one we want. As with Beautiful Soup, we can narrow the search by specifying the table attributes.</p>
-<div id="cell-32" class="cell" data-outputid="70ed26c0-dcce-4f87-8d02-e8936205752e" data-execution_count="82">
+<div id="cell-33" class="cell" data-outputid="70ed26c0-dcce-4f87-8d02-e8936205752e" data-execution_count="82">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pd.read_html(<span class="st">&quot;https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population&quot;</span>)[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3985,7 +3988,7 @@ border-bottom-color: var(--fill-color);
 </div>
 </div>
 <p>This still returns 3 tables. As we remarked above, the table that we want is the first one (see <code>[0]</code> below).</p>
-<div id="cell-34" class="cell" data-outputid="fa14e0df-7763-4fd3-ca00-ac229c866d1c" data-execution_count="83">
+<div id="cell-35" class="cell" data-outputid="fa14e0df-7763-4fd3-ca00-ac229c866d1c" data-execution_count="83">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df_cities2 <span class="op">=</span> pd.read_html(<span class="st">&quot;https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population&quot;</span>)[<span class="dv">2</span>]</span>
@@ -4423,7 +4426,7 @@ fill: #FFFFFF;
 <h2 class="anchored" data-anchor-id="scraping-information-that-is-not-in-a-table-with-beautiful-soup">Scraping information that is NOT in a <code>&lt;table&gt;</code> with Beautiful Soup</h2>
 <p>The Cal Poly course catalog http://catalog.calpoly.edu/collegesandprograms/collegeofsciencemathematics/statistics/#courseinventory contains a list of courses offered by the Statistics department. <strong>You will scrape this website to obtain a Pandas data frame with one row for each DATA or STAT course and two columns: course name and number (e.g, DATA 301. Introduction to Data Science) and term typically offered (e.g., Term Typically Offered: F, W, SP).</strong></p>
 <p>Note: Pandas <code>read_html</code> is not help here since the courses are not stored in a <code>&lt;table&gt;.</code></p>
-<div id="cell-39" class="cell" data-outputid="bf26a44c-10b0-4036-9378-0361d6891bce">
+<div id="cell-40" class="cell" data-outputid="bf26a44c-10b0-4036-9378-0361d6891bce">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pd.read_html(<span class="st">&quot;http://catalog.calpoly.edu/collegesandprograms/collegeofsciencemathematics/statistics/#courseinventory&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -4448,20 +4451,20 @@ fill: #FFFFFF;
 <li>Don’t forget to convert to a Pandas Data Frame; it should have 74 rows and 2 columns</li>
 <li>The goal of this exercise is just to create the Data Frame. If you were going to use it then you might need to clean the data first. (You can use Beautiful Soup to do some of the cleaning for you, but that goes beyond our scope.)</li>
 </ul>
-<div id="cell-41" class="cell" data-execution_count="84">
+<div id="cell-42" class="cell" data-execution_count="84">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE. ADD AS MANY CELLS AS NEEDED</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>response_2 <span class="op">=</span> requests.get(<span class="st">&quot;http://catalog.calpoly.edu/collegesandprograms/collegeofsciencemathematics/statistics/#courseinventory&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-42" class="cell" data-execution_count="85">
+<div id="cell-43" class="cell" data-execution_count="85">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>soup_2 <span class="op">=</span> BeautifulSoup(response_2.content, <span class="st">&quot;html.parser&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-43" class="cell" data-execution_count="138">
+<div id="cell-44" class="cell" data-execution_count="138">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>row_2 <span class="op">=</span> []</span>
@@ -4479,7 +4482,7 @@ fill: #FFFFFF;
 <span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-44" class="cell" data-outputid="1b6b2bbe-bbeb-473c-c864-ba978903cda8" data-execution_count="140">
+<div id="cell-45" class="cell" data-outputid="1b6b2bbe-bbeb-473c-c864-ba978903cda8" data-execution_count="140">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>calpoly <span class="op">=</span> pd.DataFrame(row_2)</span>
@@ -4724,7 +4727,7 @@ border-bottom-color: var(--fill-color);
   </div>
 </div>
 </div>
-<div id="cell-45" class="cell" data-outputid="734156a8-dda2-4057-e7bb-6fe4c56fc908" data-execution_count="143">
+<div id="cell-46" class="cell" data-outputid="734156a8-dda2-4057-e7bb-6fe4c56fc908" data-execution_count="143">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>calpoly.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
