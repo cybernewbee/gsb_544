@@ -3130,7 +3130,7 @@ vertical-align: -.125em;
 <h1>XML, HTML, and Web Scraping</h1>
 <p>JSON and XML are two different ways to represent hierarchical data. Which one is better? There are lots of articles online which discuss similarities and differences between JSON and XML and their advantages and disadvantages. Both formats are still in current usage, so it is good to be familiar with both. However, JSON is more common, so we’ll focus on working with JSON representations of hierarchical data.</p>
 <p>The reading covered an example of using Beautiful Soup to parse XML. Rather than doing another example XML now, we’ll skip straight to scraping HTML from a webpage. Both HTML and XML can be parsed in a similar way with Beautiful Soup.</p>
-<div id="cell-2" class="cell" data-execution_count="69">
+<div id="cell-2" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3140,7 +3140,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="scraping-an-html-table-with-beautiful-soup">Scraping an HTML table with Beautiful Soup</h2>
 <p>Open the URL https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population and scroll down until you see a table of the cities in the U.S. with population over 100,000 (as of Jul 1, 2022). We’ll use Beautiful Soup to scrape information from this table.</p>
 <p>Read in the HTML from the ULR using the <code>requests</code> library.</p>
-<div id="cell-6" class="cell" data-execution_count="70">
+<div id="cell-6" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE</span></span>
@@ -3149,7 +3149,7 @@ vertical-align: -.125em;
 </details>
 </div>
 <p>Use Beautiful Soup to parse this string into a tree called <code>soup</code></p>
-<div id="cell-8" class="cell" data-execution_count="71">
+<div id="cell-8" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE</span></span>
@@ -3161,17 +3161,17 @@ vertical-align: -.125em;
 <p>You should find that the cities table on the Wikipedia page corresponds to the element</p>
 <pre><code>&lt;table class=&quot;wikitable sortable jquery-tablesorter&quot; style=&quot;text-align:center&quot;&gt;</code></pre>
 <p>There are many <code>&lt;table&gt;</code> tags on the page.</p>
-<div id="cell-11" class="cell" data-outputid="15efb786-5fb2-4969-9754-040a6efb8311" data-execution_count="72">
+<div id="cell-11" class="cell" data-outputid="15efb786-5fb2-4969-9754-040a6efb8311" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(soup.find_all(<span class="st">&quot;table&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="72">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>10</code></pre>
 </div>
 </div>
 <p>We can use attributes like <code>class=</code> and <code>style=</code> to narrow down the list.</p>
-<div id="cell-13" class="cell" data-outputid="bfe57152-faf2-441c-c8e6-797a6158fff9" data-execution_count="73">
+<div id="cell-13" class="cell" data-outputid="bfe57152-faf2-441c-c8e6-797a6158fff9" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tables <span class="op">=</span> soup.find_all(<span class="st">&quot;table&quot;</span>) <span class="co"># code suggested by Chat to print out all possible attrs</span></span>
@@ -3191,41 +3191,32 @@ vertical-align: -.125em;
 {&#39;class&#39;: [&#39;navbox-columns-table&#39;], &#39;style&#39;: &#39;border-spacing: 0px; text-align:left;width:auto; margin-left:auto; margin-right:auto;&#39;}</code></pre>
 </div>
 </div>
-<div id="cell-14" class="cell" data-outputid="276c557e-f28b-4951-c62c-370bf30cefa5" data-execution_count="74">
+<div id="cell-14" class="cell" data-outputid="33e240b1-e37d-429b-d2e2-8c5084db5ba3" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(soup.find_all(<span class="st">&quot;table&quot;</span>, attrs<span class="op">=</span>{<span class="st">&quot;class&quot;</span>: [<span class="st">&#39;sortable&#39;</span>, <span class="st">&#39;wikitable&#39;</span>, <span class="st">&#39;sticky-header-multi&#39;</span>, <span class="st">&#39;static-row-numbers&#39;</span>, <span class="st">&#39;sort-under&#39;</span>, <span class="st">&#39;col1left&#39;</span>, <span class="st">&#39;col2center&#39;</span>],</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">&#39;style&#39;</span>: <span class="st">&#39;text-align:right&#39;</span>})) <span class="co"># refine attrs using the above</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display" data-execution_count="74">
-<pre><code>3</code></pre>
-</div>
-</div>
-<div id="cell-15" class="cell" data-outputid="33e240b1-e37d-429b-d2e2-8c5084db5ba3">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tables <span class="op">=</span> soup.find_all(<span class="st">&quot;table&quot;</span>, attrs<span class="op">=</span>{<span class="st">&quot;class&quot;</span>: [<span class="st">&#39;sortable&#39;</span>, <span class="st">&#39;wikitable&#39;</span>, <span class="st">&#39;sticky-header-multi&#39;</span>, <span class="st">&#39;static-row-numbers&#39;</span>, <span class="st">&#39;sort-under&#39;</span>, <span class="st">&#39;col1left&#39;</span>, <span class="st">&#39;col2center&#39;</span>],</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">&#39;style&#39;</span>: <span class="st">&#39;text-align:right&#39;</span>})</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> table <span class="kw">in</span> tables:</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(table.attrs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>tables <span class="op">=</span> soup.find_all(<span class="st">&quot;table&quot;</span>, attrs<span class="op">=</span>{<span class="st">&quot;class&quot;</span>: <span class="st">&#39;sticky-header-multi&#39;</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">&#39;style&#39;</span>: <span class="st">&#39;text-align:right&#39;</span>})</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> table <span class="kw">in</span> tables:</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(table.attrs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>{&#39;class&#39;: [&#39;sortable&#39;, &#39;wikitable&#39;, &#39;sticky-header-multi&#39;, &#39;static-row-numbers&#39;, &#39;sort-under&#39;, &#39;col1left&#39;, &#39;col2center&#39;], &#39;style&#39;: &#39;text-align:right&#39;}
-{&#39;class&#39;: [&#39;sortable&#39;, &#39;wikitable&#39;, &#39;static-row-numbers&#39;, &#39;sort-under&#39;, &#39;col1left&#39;], &#39;style&#39;: &#39;text-align:right&#39;}
-{&#39;class&#39;: [&#39;wikitable&#39;, &#39;sortable&#39;, &#39;sort-under&#39;, &#39;col1left&#39;, &#39;col2center&#39;], &#39;style&#39;: &#39;text-align:right&#39;}</code></pre>
+<pre><code>{&#39;class&#39;: [&#39;sortable&#39;, &#39;wikitable&#39;, &#39;sticky-header-multi&#39;, &#39;static-row-numbers&#39;, &#39;sort-under&#39;, &#39;col1left&#39;, &#39;col2center&#39;], &#39;style&#39;: &#39;text-align:right&#39;}</code></pre>
 </div>
 </div>
 <p>At this point, you can manually inspect the tables on the webpage to find that the one we want is the first one (see <code>[0]</code> below). We’ll store this as <code>table</code>.</p>
 <ul>
 <li>‘sticky-header-multi’ is the table we need</li>
 </ul>
-<div id="cell-18" class="cell" data-execution_count="75">
+<div id="cell-17" class="cell" data-execution_count="31">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>table <span class="op">=</span> soup.find_all(<span class="st">&quot;table&quot;</span>, attrs<span class="op">=</span>{<span class="st">&quot;class&quot;</span>: [<span class="st">&#39;sortable&#39;</span>, <span class="st">&#39;wikitable&#39;</span>, <span class="st">&#39;sticky-header-multi&#39;</span>, <span class="st">&#39;static-row-numbers&#39;</span>, <span class="st">&#39;sort-under&#39;</span>, <span class="st">&#39;col1left&#39;</span>, <span class="st">&#39;col2center&#39;</span>],</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">&#39;style&#39;</span>: <span class="st">&#39;text-align:right&#39;</span>})[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>table <span class="op">=</span> soup.find_all(<span class="st">&quot;table&quot;</span>, attrs<span class="op">=</span>{<span class="st">&quot;class&quot;</span>: <span class="st">&#39;sticky-header-multi&#39;</span>,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">&#39;style&#39;</span>: <span class="st">&#39;text-align:right&#39;</span>})[<span class="dv">0</span>] <span class="co"># must put the index</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+<ul>
+<li>must put index all use find</li>
+</ul>
 <p><strong>Now you will write code to scrape the information in <code>table</code> to create a Pandas data frame with one row for each city and columns for: city, state, population (2022 estimate), and 2020 land area (sq mi).</strong> Refer to the Notes/suggestions below as you write your code. A few Hints are provided further down, but try coding first before looking at the hints.</p>
 <p>Notes/suggestions:</p>
 <ul>
@@ -3237,90 +3228,88 @@ vertical-align: -.125em;
 <li><p>The goal of this exercise is just to create the Data Frame. If you were going to use it — e.g., what is the population density for all cities in CA? — then you would need to clean the data first (to clean strings and convert to quantitative). (You can use Beautiful Soup to do some of the cleaning for you, but that goes beyond our scope.)</p></li>
 <li><p>test out code</p></li>
 </ul>
-<div id="cell-22" class="cell" data-outputid="04fd5ac0-2e4a-4311-9884-00266206f583" data-execution_count="76">
+<div id="cell-22" class="cell" data-outputid="04fd5ac0-2e4a-4311-9884-00266206f583" data-execution_count="32">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>text_row <span class="op">=</span> table.find_all(<span class="st">&quot;tr&quot;</span>)[<span class="dv">2</span>]</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>cell_test <span class="op">=</span> text_row.find_all(<span class="st">&quot;td&quot;</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>cell_test[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>text_row <span class="op">=</span> table.find_all(<span class="st">&quot;tr&quot;</span>)[<span class="dv">2</span>]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cell_test <span class="op">=</span> text_row.find_all(<span class="st">&quot;td&quot;</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>cell_test[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="76">
+<div class="cell-output cell-output-display" data-execution_count="32">
 <pre><code>&lt;td style=&quot;background-color:#cfecec&quot;&gt;&lt;i&gt;&lt;a href=&quot;/wiki/New_York_City&quot; title=&quot;New York City&quot;&gt;New York&lt;/a&gt;&lt;/i&gt;&lt;sup class=&quot;reference&quot; id=&quot;cite_ref-5&quot;&gt;&lt;a href=&quot;#cite_note-5&quot;&gt;&lt;span class=&quot;cite-bracket&quot;&gt;[&lt;/span&gt;c&lt;span class=&quot;cite-bracket&quot;&gt;]&lt;/span&gt;&lt;/a&gt;&lt;/sup&gt;
 &lt;/td&gt;</code></pre>
 </div>
 </div>
-<div id="cell-23" class="cell" data-outputid="43570088-a3c0-41f0-da97-ebafa376796d" data-execution_count="77">
+<div id="cell-23" class="cell" data-outputid="43570088-a3c0-41f0-da97-ebafa376796d" data-execution_count="17">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>city <span class="op">=</span> cell_test[<span class="dv">0</span>].find(<span class="st">&quot;a&quot;</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>city_name <span class="op">=</span> city.text.strip()</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>city_name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>city <span class="op">=</span> cell_test[<span class="dv">0</span>].find(<span class="st">&quot;a&quot;</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>city_name <span class="op">=</span> city.text.strip()</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>city_name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="77">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>&#39;New York&#39;</code></pre>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="78">
+<div id="cell-24" class="cell" data-execution_count="18">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE. ADD AS MANY CELLS AS NEEDED</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> []</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate over all rows in the faculty table</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> city <span class="kw">in</span> table.find_all(<span class="st">&quot;tr&quot;</span>)[<span class="dv">2</span>:]:</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get all the cells (&lt;td&gt;) in the row.</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    cells <span class="op">=</span> city.find_all(<span class="st">&quot;td&quot;</span>)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find the the name of the city in cell[0]</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># city is contained in the &lt;a&gt; tag</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    city <span class="op">=</span> cells[<span class="dv">0</span>].find(<span class="st">&quot;a&quot;</span>) <span class="kw">or</span> cells[<span class="dv">0</span>]</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    city_name <span class="op">=</span> city.text.strip()</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find the state of the city in cell[1]</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># state is contained in the &lt;a&gt; tag</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    state <span class="op">=</span> cells[<span class="dv">1</span>].find(<span class="st">&quot;a&quot;</span>) <span class="kw">or</span> cells[<span class="dv">1</span>]</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    state_short <span class="op">=</span> state.text.strip()</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find the 2022 estimate in cell[2]</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2022 estimate is contained in the &lt;td&gt; tag</span></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    estimate <span class="op">=</span> cells[<span class="dv">2</span>].find(<span class="st">&quot;td&quot;</span>) <span class="kw">or</span> cells[<span class="dv">2</span>]</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    est_22 <span class="op">=</span> estimate.text.strip()</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find the 2022 estimate in cell[2]</span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2022 estimate is contained in the &lt;td&gt; tag</span></span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>    land <span class="op">=</span> cells[<span class="dv">5</span>].find(<span class="st">&quot;td&quot;</span>) <span class="kw">or</span> cells[<span class="dv">5</span>]</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>    land_area <span class="op">=</span> land.text.strip()</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Append this data.</span></span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>    rows.append({</span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;city&quot;</span>: city_name,</span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;state&quot;</span>: state_short,</span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;2022_estimate&quot;</span>: est_22,</span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;land_area&quot;</span>: land_area</span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE. ADD AS MANY CELLS AS NEEDED</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> []</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate over all rows in the faculty table</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> city <span class="kw">in</span> table.find_all(<span class="st">&quot;tr&quot;</span>)[<span class="dv">2</span>:]:</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get all the cells (&lt;td&gt;) in the row.</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    cells <span class="op">=</span> city.find_all(<span class="st">&quot;td&quot;</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find the the name of the city in cell[0]</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># city is contained in the &lt;a&gt; tag</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    city <span class="op">=</span> cells[<span class="dv">0</span>].find(<span class="st">&quot;a&quot;</span>) <span class="kw">or</span> cells[<span class="dv">0</span>]</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    city_name <span class="op">=</span> city.text.strip()</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find the state of the city in cell[1]</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># state is contained in the &lt;a&gt; tag</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    state <span class="op">=</span> cells[<span class="dv">1</span>].find(<span class="st">&quot;a&quot;</span>) <span class="kw">or</span> cells[<span class="dv">1</span>]</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    state_short <span class="op">=</span> state.text.strip()</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find the 2022 estimate in cell[2]</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2022 estimate is contained in the &lt;td&gt; tag</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    estimate <span class="op">=</span> cells[<span class="dv">2</span>].find(<span class="st">&quot;td&quot;</span>) <span class="kw">or</span> cells[<span class="dv">2</span>]</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    est_22 <span class="op">=</span> estimate.text.strip()</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find the 2022 estimate in cell[2]</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2022 estimate is contained in the &lt;td&gt; tag</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>    land <span class="op">=</span> cells[<span class="dv">5</span>].find(<span class="st">&quot;td&quot;</span>) <span class="kw">or</span> cells[<span class="dv">5</span>]</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>    land_area <span class="op">=</span> land.text.strip()</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Append this data.</span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>    rows.append({</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;city&quot;</span>: city_name,</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;state&quot;</span>: state_short,</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;2022_estimate&quot;</span>: est_22,</span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;land_area&quot;</span>: land_area</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-25" class="cell" data-outputid="e370664c-d987-43e4-d508-be1c18909436" data-execution_count="79">
+<div id="cell-25" class="cell" data-outputid="e370664c-d987-43e4-d508-be1c18909436" data-execution_count="19">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(rows)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(rows)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="79">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>list</code></pre>
 </div>
 </div>
-<div id="cell-26" class="cell" data-outputid="3aaccb0c-8dbd-4dc4-bba6-45ec06ba7a44" data-execution_count="141">
+<div id="cell-26" class="cell" data-outputid="3aaccb0c-8dbd-4dc4-bba6-45ec06ba7a44" data-execution_count="20">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>wiki <span class="op">=</span> pd.DataFrame(rows)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>wiki.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>wiki <span class="op">=</span> pd.DataFrame(rows)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>wiki.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="141">
-
-  <div id="df-03cbfcda-f5e2-4321-b0a7-0b4247bed017" class="colab-df-container">
-    <div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div>
 
 
 <table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -3373,205 +3362,12 @@ vertical-align: -.125em;
 </table>
 
 </div>
-    <div class="colab-df-buttons">
-
-  <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive(&#39;df-03cbfcda-f5e2-4321-b0a7-0b4247bed017&#39;)" title="Convert this dataframe to an interactive table." style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 -960 960 960">
-    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z" />
-  </svg>
-    </button>
-
-  <style>
-.colab-df-container {
-display:flex;
-gap: 12px;
-}
-.colab-df-convert {
-background-color: #E8F0FE;
-border: none;
-border-radius: 50%;
-cursor: pointer;
-display: none;
-fill: #1967D2;
-height: 32px;
-padding: 0 0 0 0;
-width: 32px;
-}
-.colab-df-convert:hover {
-background-color: #E2EBFA;
-box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-fill: #174EA6;
-}
-.colab-df-buttons div {
-margin-bottom: 4px;
-}
-[theme=dark] .colab-df-convert {
-background-color: #3B4455;
-fill: #D2E3FC;
-}
-[theme=dark] .colab-df-convert:hover {
-background-color: #434B5C;
-box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-fill: #FFFFFF;
-}
-</style>
-
-    <script>
-      const buttonEl =
-        document.querySelector('#df-03cbfcda-f5e2-4321-b0a7-0b4247bed017 button.colab-df-convert');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      async function convertToInteractive(key) {
-        const element = document.querySelector('#df-03cbfcda-f5e2-4321-b0a7-0b4247bed017');
-        const dataTable =
-          await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                    [key], {});
-        if (!dataTable) return;
-
-        const docLinkHtml = 'Like what you see? Visit the ' +
-          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-          + ' to learn more about interactive tables.';
-        element.innerHTML = '';
-        dataTable['output_type'] = 'display_data';
-        await google.colab.output.renderOutput(dataTable, element);
-        const docLink = document.createElement('div');
-        docLink.innerHTML = docLinkHtml;
-        element.appendChild(docLink);
-      }
-    </script>
-  </div>
-
-
-<div id="df-6c142a9c-19fb-48f4-80e4-21cd3f5c8dd4">
-  <button class="colab-df-quickchart" onclick="quickchart(&#39;df-6c142a9c-19fb-48f4-80e4-21cd3f5c8dd4&#39;)" title="Suggest charts" style="display:none;">
-
-<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <g>
-        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-    </g>
-</svg>
-  </button>
-
-<style>
-.colab-df-quickchart {
---bg-color: #E8F0FE;
---fill-color: #1967D2;
---hover-bg-color: #E2EBFA;
---hover-fill-color: #174EA6;
---disabled-fill-color: #AAA;
---disabled-bg-color: #DDD;
-}
-[theme=dark] .colab-df-quickchart {
---bg-color: #3B4455;
---fill-color: #D2E3FC;
---hover-bg-color: #434B5C;
---hover-fill-color: #FFFFFF;
---disabled-bg-color: #3B4455;
---disabled-fill-color: #666;
-}
-.colab-df-quickchart {
-background-color: var(--bg-color);
-border: none;
-border-radius: 50%;
-cursor: pointer;
-display: none;
-fill: var(--fill-color);
-height: 32px;
-padding: 0;
-width: 32px;
-}
-.colab-df-quickchart:hover {
-background-color: var(--hover-bg-color);
-box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-fill: var(--button-hover-fill-color);
-}
-.colab-df-quickchart-complete:disabled,
-.colab-df-quickchart-complete:disabled:hover {
-background-color: var(--disabled-bg-color);
-fill: var(--disabled-fill-color);
-box-shadow: none;
-}
-.colab-df-spinner {
-border: 2px solid var(--fill-color);
-border-color: transparent;
-border-bottom-color: var(--fill-color);
-animation:
-spin 1s steps(1) infinite;
-}
-@keyframes spin {
-0% {
-border-color: transparent;
-border-bottom-color: var(--fill-color);
-border-left-color: var(--fill-color);
-}
-20% {
-border-color: transparent;
-border-left-color: var(--fill-color);
-border-top-color: var(--fill-color);
-}
-30% {
-border-color: transparent;
-border-left-color: var(--fill-color);
-border-top-color: var(--fill-color);
-border-right-color: var(--fill-color);
-}
-40% {
-border-color: transparent;
-border-right-color: var(--fill-color);
-border-top-color: var(--fill-color);
-}
-60% {
-border-color: transparent;
-border-right-color: var(--fill-color);
-}
-80% {
-border-color: transparent;
-border-right-color: var(--fill-color);
-border-bottom-color: var(--fill-color);
-}
-90% {
-border-color: transparent;
-border-bottom-color: var(--fill-color);
-}
-}
-</style>
-
-  <script>
-    async function quickchart(key) {
-      const quickchartButtonEl =
-        document.querySelector('#' + key + ' button');
-      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
-      quickchartButtonEl.classList.add('colab-df-spinner');
-      try {
-        const charts = await google.colab.kernel.invokeFunction(
-            'suggestCharts', [key], {});
-      } catch (error) {
-        console.error('Error during call to suggestCharts:', error);
-      }
-      quickchartButtonEl.classList.remove('colab-df-spinner');
-      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
-    }
-    (() => {
-      let quickchartButtonEl =
-        document.querySelector('#df-6c142a9c-19fb-48f4-80e4-21cd3f5c8dd4 button');
-      quickchartButtonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-    })();
-  </script>
-</div>
-
-    </div>
-  </div>
 </div>
 </div>
-<div id="cell-27" class="cell" data-outputid="88ad04e2-75df-4276-b100-a9d03a6807fe" data-execution_count="142">
+<div id="cell-27" class="cell" data-outputid="88ad04e2-75df-4276-b100-a9d03a6807fe" data-execution_count="21">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>wiki.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>wiki.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
@@ -3601,19 +3397,17 @@ memory usage: 10.6+ KB</code></pre>
 <div id="cell-31" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pd.read_html(<span class="st">&quot;https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pd.read_html(<span class="st">&quot;https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>However, this scrapes all the tables on the webpage, not just the one we want. As with Beautiful Soup, we can narrow the search by specifying the table attributes.</p>
-<div id="cell-33" class="cell" data-outputid="70ed26c0-dcce-4f87-8d02-e8936205752e" data-execution_count="82">
+<div id="cell-33" class="cell" data-outputid="70ed26c0-dcce-4f87-8d02-e8936205752e" data-execution_count="23">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pd.read_html(<span class="st">&quot;https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population&quot;</span>)[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pd.read_html(<span class="st">&quot;https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population&quot;</span>)[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="82">
-
-  <div id="df-14ba2a5a-132c-4b8d-bf50-6ebcce339998" class="colab-df-container">
-    <div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div>
 
 
 <table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -3792,212 +3586,17 @@ memory usage: 10.6+ KB</code></pre>
 
 <p>336 rows × 10 columns</p>
 </div>
-    <div class="colab-df-buttons">
-
-  <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive(&#39;df-14ba2a5a-132c-4b8d-bf50-6ebcce339998&#39;)" title="Convert this dataframe to an interactive table." style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 -960 960 960">
-    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z" />
-  </svg>
-    </button>
-
-  <style>
-.colab-df-container {
-display:flex;
-gap: 12px;
-}
-.colab-df-convert {
-background-color: #E8F0FE;
-border: none;
-border-radius: 50%;
-cursor: pointer;
-display: none;
-fill: #1967D2;
-height: 32px;
-padding: 0 0 0 0;
-width: 32px;
-}
-.colab-df-convert:hover {
-background-color: #E2EBFA;
-box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-fill: #174EA6;
-}
-.colab-df-buttons div {
-margin-bottom: 4px;
-}
-[theme=dark] .colab-df-convert {
-background-color: #3B4455;
-fill: #D2E3FC;
-}
-[theme=dark] .colab-df-convert:hover {
-background-color: #434B5C;
-box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-fill: #FFFFFF;
-}
-</style>
-
-    <script>
-      const buttonEl =
-        document.querySelector('#df-14ba2a5a-132c-4b8d-bf50-6ebcce339998 button.colab-df-convert');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      async function convertToInteractive(key) {
-        const element = document.querySelector('#df-14ba2a5a-132c-4b8d-bf50-6ebcce339998');
-        const dataTable =
-          await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                    [key], {});
-        if (!dataTable) return;
-
-        const docLinkHtml = 'Like what you see? Visit the ' +
-          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-          + ' to learn more about interactive tables.';
-        element.innerHTML = '';
-        dataTable['output_type'] = 'display_data';
-        await google.colab.output.renderOutput(dataTable, element);
-        const docLink = document.createElement('div');
-        docLink.innerHTML = docLinkHtml;
-        element.appendChild(docLink);
-      }
-    </script>
-  </div>
-
-
-<div id="df-08b0bbd9-33cf-4cc8-a2f7-a2e98849b1f8">
-  <button class="colab-df-quickchart" onclick="quickchart(&#39;df-08b0bbd9-33cf-4cc8-a2f7-a2e98849b1f8&#39;)" title="Suggest charts" style="display:none;">
-
-<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <g>
-        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-    </g>
-</svg>
-  </button>
-
-<style>
-.colab-df-quickchart {
---bg-color: #E8F0FE;
---fill-color: #1967D2;
---hover-bg-color: #E2EBFA;
---hover-fill-color: #174EA6;
---disabled-fill-color: #AAA;
---disabled-bg-color: #DDD;
-}
-[theme=dark] .colab-df-quickchart {
---bg-color: #3B4455;
---fill-color: #D2E3FC;
---hover-bg-color: #434B5C;
---hover-fill-color: #FFFFFF;
---disabled-bg-color: #3B4455;
---disabled-fill-color: #666;
-}
-.colab-df-quickchart {
-background-color: var(--bg-color);
-border: none;
-border-radius: 50%;
-cursor: pointer;
-display: none;
-fill: var(--fill-color);
-height: 32px;
-padding: 0;
-width: 32px;
-}
-.colab-df-quickchart:hover {
-background-color: var(--hover-bg-color);
-box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-fill: var(--button-hover-fill-color);
-}
-.colab-df-quickchart-complete:disabled,
-.colab-df-quickchart-complete:disabled:hover {
-background-color: var(--disabled-bg-color);
-fill: var(--disabled-fill-color);
-box-shadow: none;
-}
-.colab-df-spinner {
-border: 2px solid var(--fill-color);
-border-color: transparent;
-border-bottom-color: var(--fill-color);
-animation:
-spin 1s steps(1) infinite;
-}
-@keyframes spin {
-0% {
-border-color: transparent;
-border-bottom-color: var(--fill-color);
-border-left-color: var(--fill-color);
-}
-20% {
-border-color: transparent;
-border-left-color: var(--fill-color);
-border-top-color: var(--fill-color);
-}
-30% {
-border-color: transparent;
-border-left-color: var(--fill-color);
-border-top-color: var(--fill-color);
-border-right-color: var(--fill-color);
-}
-40% {
-border-color: transparent;
-border-right-color: var(--fill-color);
-border-top-color: var(--fill-color);
-}
-60% {
-border-color: transparent;
-border-right-color: var(--fill-color);
-}
-80% {
-border-color: transparent;
-border-right-color: var(--fill-color);
-border-bottom-color: var(--fill-color);
-}
-90% {
-border-color: transparent;
-border-bottom-color: var(--fill-color);
-}
-}
-</style>
-
-  <script>
-    async function quickchart(key) {
-      const quickchartButtonEl =
-        document.querySelector('#' + key + ' button');
-      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
-      quickchartButtonEl.classList.add('colab-df-spinner');
-      try {
-        const charts = await google.colab.kernel.invokeFunction(
-            'suggestCharts', [key], {});
-      } catch (error) {
-        console.error('Error during call to suggestCharts:', error);
-      }
-      quickchartButtonEl.classList.remove('colab-df-spinner');
-      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
-    }
-    (() => {
-      let quickchartButtonEl =
-        document.querySelector('#df-08b0bbd9-33cf-4cc8-a2f7-a2e98849b1f8 button');
-      quickchartButtonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-    })();
-  </script>
-</div>
-
-    </div>
-  </div>
 </div>
 </div>
 <p>This still returns 3 tables. As we remarked above, the table that we want is the first one (see <code>[0]</code> below).</p>
-<div id="cell-35" class="cell" data-outputid="fa14e0df-7763-4fd3-ca00-ac229c866d1c" data-execution_count="83">
+<div id="cell-35" class="cell" data-outputid="fa14e0df-7763-4fd3-ca00-ac229c866d1c" data-execution_count="24">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df_cities2 <span class="op">=</span> pd.read_html(<span class="st">&quot;https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population&quot;</span>)[<span class="dv">2</span>]</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df_cities2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df_cities2 <span class="op">=</span> pd.read_html(<span class="st">&quot;https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population&quot;</span>)[<span class="dv">2</span>]</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>df_cities2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="83">
-
-  <div id="df-7a8bf37c-9898-497a-be9c-10e438c615f5" class="colab-df-container">
-    <div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div>
 
 
 <table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -4176,248 +3775,6 @@ border-bottom-color: var(--fill-color);
 
 <p>336 rows × 10 columns</p>
 </div>
-    <div class="colab-df-buttons">
-
-  <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive(&#39;df-7a8bf37c-9898-497a-be9c-10e438c615f5&#39;)" title="Convert this dataframe to an interactive table." style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 -960 960 960">
-    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z" />
-  </svg>
-    </button>
-
-  <style>
-.colab-df-container {
-display:flex;
-gap: 12px;
-}
-.colab-df-convert {
-background-color: #E8F0FE;
-border: none;
-border-radius: 50%;
-cursor: pointer;
-display: none;
-fill: #1967D2;
-height: 32px;
-padding: 0 0 0 0;
-width: 32px;
-}
-.colab-df-convert:hover {
-background-color: #E2EBFA;
-box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-fill: #174EA6;
-}
-.colab-df-buttons div {
-margin-bottom: 4px;
-}
-[theme=dark] .colab-df-convert {
-background-color: #3B4455;
-fill: #D2E3FC;
-}
-[theme=dark] .colab-df-convert:hover {
-background-color: #434B5C;
-box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-fill: #FFFFFF;
-}
-</style>
-
-    <script>
-      const buttonEl =
-        document.querySelector('#df-7a8bf37c-9898-497a-be9c-10e438c615f5 button.colab-df-convert');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      async function convertToInteractive(key) {
-        const element = document.querySelector('#df-7a8bf37c-9898-497a-be9c-10e438c615f5');
-        const dataTable =
-          await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                    [key], {});
-        if (!dataTable) return;
-
-        const docLinkHtml = 'Like what you see? Visit the ' +
-          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-          + ' to learn more about interactive tables.';
-        element.innerHTML = '';
-        dataTable['output_type'] = 'display_data';
-        await google.colab.output.renderOutput(dataTable, element);
-        const docLink = document.createElement('div');
-        docLink.innerHTML = docLinkHtml;
-        element.appendChild(docLink);
-      }
-    </script>
-  </div>
-
-
-<div id="df-439d3712-4d0e-4d3b-8a2f-381a706dc116">
-  <button class="colab-df-quickchart" onclick="quickchart(&#39;df-439d3712-4d0e-4d3b-8a2f-381a706dc116&#39;)" title="Suggest charts" style="display:none;">
-
-<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <g>
-        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-    </g>
-</svg>
-  </button>
-
-<style>
-.colab-df-quickchart {
---bg-color: #E8F0FE;
---fill-color: #1967D2;
---hover-bg-color: #E2EBFA;
---hover-fill-color: #174EA6;
---disabled-fill-color: #AAA;
---disabled-bg-color: #DDD;
-}
-[theme=dark] .colab-df-quickchart {
---bg-color: #3B4455;
---fill-color: #D2E3FC;
---hover-bg-color: #434B5C;
---hover-fill-color: #FFFFFF;
---disabled-bg-color: #3B4455;
---disabled-fill-color: #666;
-}
-.colab-df-quickchart {
-background-color: var(--bg-color);
-border: none;
-border-radius: 50%;
-cursor: pointer;
-display: none;
-fill: var(--fill-color);
-height: 32px;
-padding: 0;
-width: 32px;
-}
-.colab-df-quickchart:hover {
-background-color: var(--hover-bg-color);
-box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-fill: var(--button-hover-fill-color);
-}
-.colab-df-quickchart-complete:disabled,
-.colab-df-quickchart-complete:disabled:hover {
-background-color: var(--disabled-bg-color);
-fill: var(--disabled-fill-color);
-box-shadow: none;
-}
-.colab-df-spinner {
-border: 2px solid var(--fill-color);
-border-color: transparent;
-border-bottom-color: var(--fill-color);
-animation:
-spin 1s steps(1) infinite;
-}
-@keyframes spin {
-0% {
-border-color: transparent;
-border-bottom-color: var(--fill-color);
-border-left-color: var(--fill-color);
-}
-20% {
-border-color: transparent;
-border-left-color: var(--fill-color);
-border-top-color: var(--fill-color);
-}
-30% {
-border-color: transparent;
-border-left-color: var(--fill-color);
-border-top-color: var(--fill-color);
-border-right-color: var(--fill-color);
-}
-40% {
-border-color: transparent;
-border-right-color: var(--fill-color);
-border-top-color: var(--fill-color);
-}
-60% {
-border-color: transparent;
-border-right-color: var(--fill-color);
-}
-80% {
-border-color: transparent;
-border-right-color: var(--fill-color);
-border-bottom-color: var(--fill-color);
-}
-90% {
-border-color: transparent;
-border-bottom-color: var(--fill-color);
-}
-}
-</style>
-
-  <script>
-    async function quickchart(key) {
-      const quickchartButtonEl =
-        document.querySelector('#' + key + ' button');
-      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
-      quickchartButtonEl.classList.add('colab-df-spinner');
-      try {
-        const charts = await google.colab.kernel.invokeFunction(
-            'suggestCharts', [key], {});
-      } catch (error) {
-        console.error('Error during call to suggestCharts:', error);
-      }
-      quickchartButtonEl.classList.remove('colab-df-spinner');
-      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
-    }
-    (() => {
-      let quickchartButtonEl =
-        document.querySelector('#df-439d3712-4d0e-4d3b-8a2f-381a706dc116 button');
-      quickchartButtonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-    })();
-  </script>
-</div>
-
-  <div id="id_7822a4b6-c57d-42ee-8594-f5dd9e93cbe8">
-    <style>
-.colab-df-generate {
-background-color: #E8F0FE;
-border: none;
-border-radius: 50%;
-cursor: pointer;
-display: none;
-fill: #1967D2;
-height: 32px;
-padding: 0 0 0 0;
-width: 32px;
-}
-.colab-df-generate:hover {
-background-color: #E2EBFA;
-box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-fill: #174EA6;
-}
-[theme=dark] .colab-df-generate {
-background-color: #3B4455;
-fill: #D2E3FC;
-}
-[theme=dark] .colab-df-generate:hover {
-background-color: #434B5C;
-box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-fill: #FFFFFF;
-}
-</style>
-    <button class="colab-df-generate" onclick="generateWithVariable(&#39;df_cities2&#39;)" title="Generate code using this dataframe." style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z" />
-  </svg>
-    </button>
-    <script>
-      (() => {
-      const buttonEl =
-        document.querySelector('#id_7822a4b6-c57d-42ee-8594-f5dd9e93cbe8 button.colab-df-generate');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      buttonEl.onclick = () => {
-        google.colab.notebook.generateWithVariable('df_cities2');
-      }
-      })();
-    </script>
-  </div>
-
-    </div>
-  </div>
 </div>
 </div>
 <p>Wait, that seemed much easier than using Beautiful Soup, and it returned a data frame, and we even got for free some formatting like removing the commas from the population! Why didn’t we just use <code>read_html</code> in the first place? It’s true the <code>read_html</code> works well when scraping information from an HTML <em>table</em>. Unfortunately, you often want to scrape information from a webpage that isn’t conveniently stored in an HTML table, in which case <code>read_html</code> won’t work. (It only searches for <code>&lt;table&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;tr&gt;</code>, and <code>&lt;td&gt;</code> tags, but there are many other HTML tags.) Though Beautiful Soup is not as simple as <code>read_html</code>, it is more flexible and thus more widely applicable.</p>
@@ -4426,12 +3783,12 @@ fill: #FFFFFF;
 <h2 class="anchored" data-anchor-id="scraping-information-that-is-not-in-a-table-with-beautiful-soup">Scraping information that is NOT in a <code>&lt;table&gt;</code> with Beautiful Soup</h2>
 <p>The Cal Poly course catalog http://catalog.calpoly.edu/collegesandprograms/collegeofsciencemathematics/statistics/#courseinventory contains a list of courses offered by the Statistics department. <strong>You will scrape this website to obtain a Pandas data frame with one row for each DATA or STAT course and two columns: course name and number (e.g, DATA 301. Introduction to Data Science) and term typically offered (e.g., Term Typically Offered: F, W, SP).</strong></p>
 <p>Note: Pandas <code>read_html</code> is not help here since the courses are not stored in a <code>&lt;table&gt;.</code></p>
-<div id="cell-40" class="cell" data-outputid="bf26a44c-10b0-4036-9378-0361d6891bce">
+<div id="cell-40" class="cell" data-outputid="bf26a44c-10b0-4036-9378-0361d6891bce" data-execution_count="25">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pd.read_html(<span class="st">&quot;http://catalog.calpoly.edu/collegesandprograms/collegeofsciencemathematics/statistics/#courseinventory&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pd.read_html(<span class="st">&quot;http://catalog.calpoly.edu/collegesandprograms/collegeofsciencemathematics/statistics/#courseinventory&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="65">
+<div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>[                                        Program name   Program type
  0                              Actuarial Preparation          Minor
  1  Cross Disciplinary Studies Minor in Bioinforma...          Minor
@@ -4451,47 +3808,45 @@ fill: #FFFFFF;
 <li>Don’t forget to convert to a Pandas Data Frame; it should have 74 rows and 2 columns</li>
 <li>The goal of this exercise is just to create the Data Frame. If you were going to use it then you might need to clean the data first. (You can use Beautiful Soup to do some of the cleaning for you, but that goes beyond our scope.)</li>
 </ul>
-<div id="cell-42" class="cell" data-execution_count="84">
+<div id="cell-42" class="cell" data-execution_count="26">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE. ADD AS MANY CELLS AS NEEDED</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>response_2 <span class="op">=</span> requests.get(<span class="st">&quot;http://catalog.calpoly.edu/collegesandprograms/collegeofsciencemathematics/statistics/#courseinventory&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE. ADD AS MANY CELLS AS NEEDED</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>response_2 <span class="op">=</span> requests.get(<span class="st">&quot;http://catalog.calpoly.edu/collegesandprograms/collegeofsciencemathematics/statistics/#courseinventory&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-43" class="cell" data-execution_count="85">
+<div id="cell-43" class="cell" data-execution_count="27">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>soup_2 <span class="op">=</span> BeautifulSoup(response_2.content, <span class="st">&quot;html.parser&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>soup_2 <span class="op">=</span> BeautifulSoup(response_2.content, <span class="st">&quot;html.parser&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-44" class="cell" data-execution_count="138">
+<div id="cell-44" class="cell" data-execution_count="28">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>row_2 <span class="op">=</span> []</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> course <span class="kw">in</span> soup_2.find_all(<span class="st">&quot;div&quot;</span>,{<span class="st">&quot;class&quot;</span>: <span class="st">&quot;courseblock&quot;</span>})[<span class="dv">0</span>:]:</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    course_tag <span class="op">=</span> course.find(<span class="st">&#39;p&#39;</span>, class_<span class="op">=</span><span class="st">&#39;courseblocktitle&#39;</span>)</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    course_name <span class="op">=</span> course_tag.get_text(strip <span class="op">=</span> <span class="va">True</span>).replace(<span class="st">&quot;</span><span class="ch">\xa0</span><span class="st">&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    term_tag <span class="op">=</span> course.find_all(<span class="st">&#39;p&#39;</span>, class_<span class="op">=</span><span class="st">&#39;noindent&#39;</span>)[<span class="dv">0</span>]</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    term_name <span class="op">=</span> term_tag.text</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    row_2.append({</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;course_name&#39;</span>: course_name,</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;term&#39;</span> : term_name</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>row_2 <span class="op">=</span> []</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> course <span class="kw">in</span> soup_2.find_all(<span class="st">&quot;div&quot;</span>,{<span class="st">&quot;class&quot;</span>: <span class="st">&quot;courseblock&quot;</span>})[<span class="dv">0</span>:]:</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    course_tag <span class="op">=</span> course.find(<span class="st">&#39;p&#39;</span>, class_<span class="op">=</span><span class="st">&#39;courseblocktitle&#39;</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    course_name <span class="op">=</span> course_tag.get_text(strip <span class="op">=</span> <span class="va">True</span>).replace(<span class="st">&quot;</span><span class="ch">\xa0</span><span class="st">&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    term_tag <span class="op">=</span> course.find_all(<span class="st">&#39;p&#39;</span>, class_<span class="op">=</span><span class="st">&#39;noindent&#39;</span>)[<span class="dv">0</span>]</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    term_name <span class="op">=</span> term_tag.text</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    row_2.append({</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;course_name&#39;</span>: course_name,</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;term&#39;</span> : term_name</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-45" class="cell" data-outputid="1b6b2bbe-bbeb-473c-c864-ba978903cda8" data-execution_count="140">
+<div id="cell-45" class="cell" data-outputid="1b6b2bbe-bbeb-473c-c864-ba978903cda8" data-execution_count="29">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>calpoly <span class="op">=</span> pd.DataFrame(row_2)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>calpoly.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>calpoly <span class="op">=</span> pd.DataFrame(row_2)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>calpoly.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="140">
-
-  <div id="df-4f88c352-64de-4d2d-8251-7551f3c55f12" class="colab-df-container">
-    <div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<div>
 
 
 <table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -4532,205 +3887,12 @@ fill: #FFFFFF;
 </table>
 
 </div>
-    <div class="colab-df-buttons">
-
-  <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive(&#39;df-4f88c352-64de-4d2d-8251-7551f3c55f12&#39;)" title="Convert this dataframe to an interactive table." style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 -960 960 960">
-    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z" />
-  </svg>
-    </button>
-
-  <style>
-.colab-df-container {
-display:flex;
-gap: 12px;
-}
-.colab-df-convert {
-background-color: #E8F0FE;
-border: none;
-border-radius: 50%;
-cursor: pointer;
-display: none;
-fill: #1967D2;
-height: 32px;
-padding: 0 0 0 0;
-width: 32px;
-}
-.colab-df-convert:hover {
-background-color: #E2EBFA;
-box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-fill: #174EA6;
-}
-.colab-df-buttons div {
-margin-bottom: 4px;
-}
-[theme=dark] .colab-df-convert {
-background-color: #3B4455;
-fill: #D2E3FC;
-}
-[theme=dark] .colab-df-convert:hover {
-background-color: #434B5C;
-box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-fill: #FFFFFF;
-}
-</style>
-
-    <script>
-      const buttonEl =
-        document.querySelector('#df-4f88c352-64de-4d2d-8251-7551f3c55f12 button.colab-df-convert');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      async function convertToInteractive(key) {
-        const element = document.querySelector('#df-4f88c352-64de-4d2d-8251-7551f3c55f12');
-        const dataTable =
-          await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                    [key], {});
-        if (!dataTable) return;
-
-        const docLinkHtml = 'Like what you see? Visit the ' +
-          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-          + ' to learn more about interactive tables.';
-        element.innerHTML = '';
-        dataTable['output_type'] = 'display_data';
-        await google.colab.output.renderOutput(dataTable, element);
-        const docLink = document.createElement('div');
-        docLink.innerHTML = docLinkHtml;
-        element.appendChild(docLink);
-      }
-    </script>
-  </div>
-
-
-<div id="df-c6f73401-062f-413d-92ed-aa4440924d2a">
-  <button class="colab-df-quickchart" onclick="quickchart(&#39;df-c6f73401-062f-413d-92ed-aa4440924d2a&#39;)" title="Suggest charts" style="display:none;">
-
-<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <g>
-        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-    </g>
-</svg>
-  </button>
-
-<style>
-.colab-df-quickchart {
---bg-color: #E8F0FE;
---fill-color: #1967D2;
---hover-bg-color: #E2EBFA;
---hover-fill-color: #174EA6;
---disabled-fill-color: #AAA;
---disabled-bg-color: #DDD;
-}
-[theme=dark] .colab-df-quickchart {
---bg-color: #3B4455;
---fill-color: #D2E3FC;
---hover-bg-color: #434B5C;
---hover-fill-color: #FFFFFF;
---disabled-bg-color: #3B4455;
---disabled-fill-color: #666;
-}
-.colab-df-quickchart {
-background-color: var(--bg-color);
-border: none;
-border-radius: 50%;
-cursor: pointer;
-display: none;
-fill: var(--fill-color);
-height: 32px;
-padding: 0;
-width: 32px;
-}
-.colab-df-quickchart:hover {
-background-color: var(--hover-bg-color);
-box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-fill: var(--button-hover-fill-color);
-}
-.colab-df-quickchart-complete:disabled,
-.colab-df-quickchart-complete:disabled:hover {
-background-color: var(--disabled-bg-color);
-fill: var(--disabled-fill-color);
-box-shadow: none;
-}
-.colab-df-spinner {
-border: 2px solid var(--fill-color);
-border-color: transparent;
-border-bottom-color: var(--fill-color);
-animation:
-spin 1s steps(1) infinite;
-}
-@keyframes spin {
-0% {
-border-color: transparent;
-border-bottom-color: var(--fill-color);
-border-left-color: var(--fill-color);
-}
-20% {
-border-color: transparent;
-border-left-color: var(--fill-color);
-border-top-color: var(--fill-color);
-}
-30% {
-border-color: transparent;
-border-left-color: var(--fill-color);
-border-top-color: var(--fill-color);
-border-right-color: var(--fill-color);
-}
-40% {
-border-color: transparent;
-border-right-color: var(--fill-color);
-border-top-color: var(--fill-color);
-}
-60% {
-border-color: transparent;
-border-right-color: var(--fill-color);
-}
-80% {
-border-color: transparent;
-border-right-color: var(--fill-color);
-border-bottom-color: var(--fill-color);
-}
-90% {
-border-color: transparent;
-border-bottom-color: var(--fill-color);
-}
-}
-</style>
-
-  <script>
-    async function quickchart(key) {
-      const quickchartButtonEl =
-        document.querySelector('#' + key + ' button');
-      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
-      quickchartButtonEl.classList.add('colab-df-spinner');
-      try {
-        const charts = await google.colab.kernel.invokeFunction(
-            'suggestCharts', [key], {});
-      } catch (error) {
-        console.error('Error during call to suggestCharts:', error);
-      }
-      quickchartButtonEl.classList.remove('colab-df-spinner');
-      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
-    }
-    (() => {
-      let quickchartButtonEl =
-        document.querySelector('#df-c6f73401-062f-413d-92ed-aa4440924d2a button');
-      quickchartButtonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-    })();
-  </script>
-</div>
-
-    </div>
-  </div>
 </div>
 </div>
-<div id="cell-46" class="cell" data-outputid="734156a8-dda2-4057-e7bb-6fe4c56fc908" data-execution_count="143">
+<div id="cell-46" class="cell" data-outputid="734156a8-dda2-4057-e7bb-6fe4c56fc908" data-execution_count="30">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>calpoly.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>calpoly.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
