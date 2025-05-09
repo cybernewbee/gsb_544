@@ -1,6 +1,19 @@
+# Ignore Mac system files
+.DS_Store
 
-lab/lab_1/.DS_Store
-lab/lab_1/lab_1_files/.DS_Store
-.DS_Store
-.DS_Store
-.DS_Store
+# Ignore all CSVs in lab_10
+lab/lab_10/*.csv
+
+
+lab/lab_10/concatenated_dam_energy_gen_load.csv
+lab/lab_10/concatenated_dam_energy_gen_load.csv
+lab/lab_10/dam_gen.csv
+/lab/lab_10
+lab/lab_10/concatenated_dam_energy_gen_load.csv
+lab/lab_10/dam_gen_final.csv
+lab/lab_10/energy.csv
+lab/lab_10/concatenated_dam_energy_gen_load.csv
+lab/lab_10/dam_gen.csv
+lab/lab_10/dam_gen_final.csv
+/gsb544env
+/convertor
